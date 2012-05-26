@@ -1,0 +1,72 @@
+/**
+ * 
+ */
+package com.ylsq.frame.web.common;
+
+import java.util.List;
+
+import javax.persistence.MappedSuperclass;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ylsq.frame.model.common.PK;
+import com.ylsq.frame.service.common.CommonService;
+
+/**
+ * @author hopper
+ *
+ */
+@MappedSuperclass
+public abstract class CommonController<T extends PK> {
+	@Autowired
+	protected CommonService commonService;
+	
+	protected T object;
+	protected List<T> objectList;
+
+	abstract protected String dir();
+	abstract protected Class<T> getObjectClass();
+	
+	public void customList(){
+		objectList = (List<T>)commonService.findAll(getObjectClass());
+	}
+	
+	@RequestMapping("/list")
+	public String list(Model model){
+		customList();
+		model.addAttribute("objectList", objectList);
+		return dir()+"/list";
+	}
+	
+	@RequestMapping("/add")
+	public String add(Model model){
+		object = BeanUtils.instantiate(getObjectClass());
+		model.addAttribute("object", object);
+		return dir()+"/add";
+	}
+	
+	@RequestMapping("/edit")
+	public String edit(Long id,Model model){
+		object = commonService.findById(getObjectClass(), id);
+		model.addAttribute("object", object);
+		return dir()+"/add";
+	}
+	
+	@RequestMapping("/save")
+	public String save(@ModelAttribute T obj,Model model){
+		commonService.saveOrUpdateModel(getObjectClass(), obj);
+		return list(model);
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(Long id,Model model){
+		object = BeanUtils.instantiate(getObjectClass());
+		object.setId(id);
+		commonService.deleteModel(getObjectClass(), object);
+		return list(model);
+	}
+}

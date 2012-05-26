@@ -1,0 +1,58 @@
+a{
+	font-size:10px;
+	color: black;
+}
+a:VISITED {
+	color: black;
+}
+.mainTable{
+	padding: 10px;
+	width:40%;
+	font-size:12px;
+}
+.mainTable tr{
+	padding: 6px 0;
+	clear: left;
+	line-height: 200%;
+}
+.fm_left{
+	float: left;
+	text-align: right;
+	padding-right: 10px;
+	width: 130px;
+}
+.clum_title{
+	height: 12px;
+	line-height: 29px;
+	border-bottom: 2px solid #C6D4E4;
+	padding-top: 2px;
+}
+.g_line{
+	margin: 15px 0;
+	padding: 0;
+	font-size: 1px;
+	height: 1px;
+	line-height: 1px;
+	background: url(../images/main/repeat.png) 0 -89px repeat-x;
+}
+input{
+	vertical-align: middle;
+}
+.r_btn{
+	height: 29px;
+	color: #333;
+	font-size: 12px;
+	cursor: pointer;
+	display: inline-block;
+	line-height: 29px;
+	color: black;
+	text-decroration: none;
+	padding-right: 10px;
+	padding-left: 6px;
+	overflow: visible;
+	font-weight: bold;
+}
+.f_btn{
+	padding-left: 4px;
+	display: inline-block;
+}

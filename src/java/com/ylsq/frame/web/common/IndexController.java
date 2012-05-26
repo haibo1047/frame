@@ -1,0 +1,74 @@
+package com.ylsq.frame.web.common;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ylsq.frame.model.common.SecuMenu;
+import com.ylsq.frame.service.common.CommonService;
+import com.ylsq.frame.utils.FrameMenu;
+import com.ylsq.frame.utils.SpringProperties;
+
+@Controller
+public class IndexController {
+	private static Logger logger = LoggerFactory.getLogger(IndexController.class);
+	
+	@Autowired
+	private CommonService commonService;
+	@Autowired
+	private SpringProperties springProperties;
+	@RequestMapping("/main")
+	public void index(Model model){
+		menu(model);
+		logger.debug("index");
+		model.addAttribute("systemName", springProperties.getSystemName());
+	}
+	
+	
+	@RequestMapping("/expose/login")
+	public String login(){
+		return "login";
+	}
+	
+	@RequestMapping("/top")
+	public void top(Model model){
+		logger.debug(springProperties.getSystemName());
+	}
+	
+	@RequestMapping("/leftMenu")
+	public void leftMenu(Model model){
+		List<SecuMenu> menuList = commonService.findAll(SecuMenu.class);
+		Collections.sort(menuList);
+		List<String> firstLevel = new ArrayList<String>();
+		Map<String,List<SecuMenu>> menuMap = new HashMap<String, List<SecuMenu>>();
+		for(SecuMenu m : menuList){
+			String str = m.getMenuPath().split("//")[1];
+			if(!firstLevel.contains(str)){
+				firstLevel.add(str);
+			}
+			List<SecuMenu> list = menuMap.get(str);
+			if(list == null){
+				list = new ArrayList<SecuMenu>();
+				menuMap.put(str, list);
+			}
+			list.add(m);
+		}
+		model.addAttribute("firstLevel",firstLevel);
+		model.addAttribute("menuMenu",menuMap);
+	}
+	@RequestMapping("/menu")
+	public void menu(Model model){
+		List<SecuMenu> menuList = commonService.findAll(SecuMenu.class);
+		FrameMenu menu = new FrameMenu(null,menuList);
+		model.addAttribute("menu", menu);
+	}
+}
