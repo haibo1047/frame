@@ -61,7 +61,9 @@ public abstract class CommonController<T extends PK> {
 	
 	@RequestMapping("/save")
 	public String save(@ModelAttribute T obj,Model model){
-		commonService.saveOrUpdateModel(getObjectClass(), obj);
+		object = obj;
+		beforeSave();
+		commonService.saveOrUpdateModel(getObjectClass(), object);
 		return list(model);
 	}
 	
@@ -72,4 +74,6 @@ public abstract class CommonController<T extends PK> {
 		commonService.deleteModel(getObjectClass(), object);
 		return list(model);
 	}
+	
+	protected void beforeSave(){};
 }

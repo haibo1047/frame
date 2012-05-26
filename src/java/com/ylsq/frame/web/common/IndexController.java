@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ylsq.frame.compare.SecuMenuComparator;
 import com.ylsq.frame.model.common.SecuMenu;
 import com.ylsq.frame.service.common.CommonService;
 import com.ylsq.frame.utils.FrameMenu;
@@ -47,7 +48,7 @@ public class IndexController {
 	@RequestMapping("/leftMenu")
 	public void leftMenu(Model model){
 		List<SecuMenu> menuList = commonService.findAll(SecuMenu.class);
-		Collections.sort(menuList);
+		Collections.sort(menuList,new SecuMenuComparator());
 		List<String> firstLevel = new ArrayList<String>();
 		Map<String,List<SecuMenu>> menuMap = new HashMap<String, List<SecuMenu>>();
 		for(SecuMenu m : menuList){

@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.ylsq.frame.compare.SecuMenuComparator;
 import com.ylsq.frame.model.common.SecuMenu;
 
 /**
@@ -25,7 +26,7 @@ public class FrameMenu {
 	private FrameMenu(){
 	}
 	public FrameMenu(String rootName,List<SecuMenu> menuList){
-		Collections.sort(menuList);
+		Collections.sort(menuList, new SecuMenuComparator());
 		menuName = StringUtils.defaultString(rootName, "root");
 		for(SecuMenu m : menuList){
 			FrameMenu previous = this;

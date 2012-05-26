@@ -30,4 +30,11 @@ public class SecuMenuController extends CommonController<SecuMenu>{
 		return SecuMenu.class;
 	}
 
+	@Override
+	protected void beforeSave() {
+		object = (SecuMenu)object;
+		object.setMenuName(object.getMenuPath().substring(object.getMenuPath().lastIndexOf("//")+2));
+	}
+
+
 }
