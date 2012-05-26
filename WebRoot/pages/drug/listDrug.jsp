@@ -20,6 +20,11 @@
     		<ec:column property="id"></ec:column>
     		<ec:column property="drugName" alias="药品名称"></ec:column>
     		<ec:column property="simpleSpell" alias="简拼"></ec:column>
+    		<ec:column property="drugType" alias="类型"></ec:column>
+    		<ec:column property="drugProvider.providerName" alias="供应商"></ec:column>
+    		<ec:column property="drugUnit" alias="单位"></ec:column>
+    		<ec:column property="guaranteeMonth" alias="保持期(月)"></ec:column>
+    		<ec:column property="approvalNumber" alias="批准文号"></ec:column>
     		<ec:column alias="操作" sortable="false">
 				<a href="edit.do?id=${drug.id}">修改</a>
 				<a href="delete.do?id=${drug.id}">删除</a>

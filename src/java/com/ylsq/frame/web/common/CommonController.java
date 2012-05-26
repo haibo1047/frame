@@ -46,6 +46,7 @@ public abstract class CommonController<T extends PK> {
 	@RequestMapping("/add")
 	public String add(Model model){
 		object = BeanUtils.instantiate(getObjectClass());
+		beforeEdit(model);
 		model.addAttribute("object", object);
 		model.addAttribute("objectDir", dir());
 		return dir()+"/edit"+StringHelper.firstCharUpper(dir());
@@ -54,6 +55,7 @@ public abstract class CommonController<T extends PK> {
 	@RequestMapping("/edit")
 	public String edit(Long id,Model model){
 		object = commonService.findById(getObjectClass(), id);
+		beforeEdit(model);
 		model.addAttribute("object", object);
 		model.addAttribute("objectDir", dir());
 		return dir()+"/edit"+StringHelper.firstCharUpper(dir());
@@ -75,5 +77,7 @@ public abstract class CommonController<T extends PK> {
 		return list(model);
 	}
 	
-	protected void beforeSave(){};
+	protected void beforeSave(){}
+	
+	protected void beforeEdit(Model model){}
 }

@@ -3,6 +3,8 @@
  */
 package com.ylsq.frame.model.common;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -24,6 +26,8 @@ public class DrugRepository extends PK{
 	private Repository repository;
 	private Double drugPrice;
 	private Integer drugNumber;
+	private String batchNum;
+	private Date produceDate;
 
 	@ManyToOne(targetEntity = Drug.class)
 	@JoinColumn(name = "DRUG_ID")
@@ -59,5 +63,21 @@ public class DrugRepository extends PK{
 	}
 	public void setDrugNumber(Integer drugNumber) {
 		this.drugNumber = drugNumber;
+	}
+	
+	@Column(name = "BATCH_NUM")
+	public String getBatchNum() {
+		return batchNum;
+	}
+	public void setBatchNum(String batchNum) {
+		this.batchNum = batchNum;
+	}
+	
+	@Column(name = "PRODUCE_DATE")
+	public Date getProduceDate() {
+		return produceDate;
+	}
+	public void setProduceDate(Date produceDate) {
+		this.produceDate = produceDate;
 	}
 }

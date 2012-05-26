@@ -5,7 +5,7 @@
 <html>
   <head>
     
-    <title>My JSP 'listUser.jsp' starting page</title>
+    <title>-</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,6 +23,39 @@
 				<td>药品名称：</td>
 				<td>
 					<form:input path="drugName"/>
+				</td>
+			</tr>
+			<tr>
+				<td>药品类型：</td>
+				<td>
+					<form:select path="extraInt" items="${drugTypes}" itemLabel="label" itemValue="value"></form:select>
+				</td>
+			</tr>
+			<tr>
+				<td>供应商：</td>
+				<td>
+					<form:select path="extraLong">
+						<form:option value="">请选择</form:option>
+						<form:options  items="${providers}" itemLabel="providerName" itemValue="id"/>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<td>单位：</td>
+				<td>
+					<form:input path="drugUnit"/>
+				</td>
+			</tr>
+			<tr>
+				<td>保持期(月)：</td>
+				<td>
+					<form:input path="guaranteeMonth"/>
+				</td>
+			</tr>
+			<tr>
+				<td>批准文号：</td>
+				<td>
+					<form:input path="approvalNumber"/>
 				</td>
 			</tr>
 			<tr class="g_line"> <td colspan="2"></td></tr>

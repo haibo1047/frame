@@ -8,11 +8,14 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
@@ -24,10 +27,14 @@ import com.ylsq.frame.dict.common.DrugType;
  */
 @Table(name="drug")
 @Entity
-public class Drug extends PK{
+public class Drug extends ExtraPK{
 	private String drugName;
 	private String simpleSpell;
 	private DrugType drugType;
+	private String drugUnit;//单位
+	private Integer guaranteeMonth;//保持期（月）
+	private String approvalNumber;//批准文号
+	private Provider drugProvider;//供应商
 	private Set<DrugRepository> drugRepositorySet;
 	
 	@Column(name="DRUG_NAME")
@@ -54,7 +61,41 @@ public class Drug extends PK{
 	public void setDrugType(DrugType drugType) {
 		this.drugType = drugType;
 	}
+
+	@Column(name = "DRUG_UNIT")
+	public String getDrugUnit() {
+		return drugUnit;
+	}
+	public void setDrugUnit(String drugUnit) {
+		this.drugUnit = drugUnit;
+	}
 	
+	@Column(name = "GUARANTEE_MONTH")
+	public Integer getGuaranteeMonth() {
+		return guaranteeMonth;
+	}
+	public void setGuaranteeMonth(Integer guaranteeMonth) {
+		this.guaranteeMonth = guaranteeMonth;
+	}
+	
+	@Column(name = "APPROVAL_NUMBER")
+	public String getApprovalNumber() {
+		return approvalNumber;
+	}
+	public void setApprovalNumber(String approvalNumber) {
+		this.approvalNumber = approvalNumber;
+	}
+	
+	@ManyToOne(targetEntity=Provider.class)
+	@Cascade(value = {CascadeType.SAVE_UPDATE})
+	@JoinColumn(name = "PROVIDER_ID")
+	@Fetch(FetchMode.SELECT)
+	public Provider getDrugProvider() {
+		return drugProvider;
+	}
+	public void setDrugProvider(Provider drugProvider) {
+		this.drugProvider = drugProvider;
+	}
 	
 	@OneToMany(targetEntity = DrugRepository.class)
 	@Cascade(value = {CascadeType.DELETE})

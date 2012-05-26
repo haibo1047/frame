@@ -37,6 +37,7 @@ public class LabelAndValueType implements UserType, ParameterizedType {
 		} catch (ClassNotFoundException e) {
 			logger.warn("",e);
 		}
+		initEnumValue();
 	}
 
 	public int[] sqlTypes() {
@@ -77,12 +78,11 @@ public class LabelAndValueType implements UserType, ParameterizedType {
 		else {
 			st.setNull( index, sqlTypes()[0] );
 		}
-		initEnumValue();
 	}
 	
 	private void initEnumValue(){
 		LabelAndValue[] values = enumValues.get(enumClass);
-		if(values != null){
+		if(values == null){
 			Method method;
 			try {
 				method = enumClass.getDeclaredMethod("values", new Class[0]);

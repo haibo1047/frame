@@ -10,9 +10,18 @@ import com.ylsq.frame.sh.LabelAndValue;
  *	
  */
 public enum DrugType implements LabelAndValue{
-	DrugType(1,"");
+	OTC(1,"OTX"),
+	RX(2,"处方药");
 	private Integer value;
 	private String label;
+	
+	public static DrugType convert(int v){
+		for(DrugType dt : values()){
+			if(v == dt.getValue())
+				return dt;
+		}
+		return null;
+	}
 	DrugType(int v,String l){
 		value = v;
 		label = l;
