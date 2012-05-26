@@ -13,8 +13,8 @@
   </head>
   
   <body>
-	<a href="addMenu.do">新增菜单</a>
-	<ec:table items="objectList" var="menu" imagePath="${ctx}/images/table/*.gif" action="listMenu.do" filterable="false">
+	<a href="add.do">新增菜单</a>
+	<ec:table items="objectList" var="menu" imagePath="${ctx}/images/table/*.gif" action="list.do" filterable="false">
 		<ec:row>
 			<ec:column property="id"></ec:column>
 			<ec:column property="menuName" alias="菜单名称"></ec:column>
@@ -22,7 +22,7 @@
 			<ec:column property="menuUrl" alias="菜单地址"></ec:column>
 			<ec:column property="menuOrder" alias="排序号"></ec:column>
 			<ec:column alias="操作" sortable="false">
-				<a href="editMenu.do?id=${menu.id}">edit</a>
+				<a href="edit.do?id=${menu.id}">edit</a>
 				<a href="delete.do?menuId=${menu.id}">删除</a>
 			</ec:column>
 		</ec:row>

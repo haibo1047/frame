@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ylsq.frame.model.common.PK;
 import com.ylsq.frame.service.common.CommonService;
+import com.ylsq.frame.utils.StringHelper;
 
 /**
  * @author hopper
@@ -39,21 +40,23 @@ public abstract class CommonController<T extends PK> {
 	public String list(Model model){
 		customList();
 		model.addAttribute("objectList", objectList);
-		return dir()+"/list";
+		return dir()+"/list"+StringHelper.firstCharUpper(dir());
 	}
 	
 	@RequestMapping("/add")
 	public String add(Model model){
 		object = BeanUtils.instantiate(getObjectClass());
 		model.addAttribute("object", object);
-		return dir()+"/add";
+		model.addAttribute("objectDir", dir());
+		return dir()+"/edit"+StringHelper.firstCharUpper(dir());
 	}
 	
 	@RequestMapping("/edit")
 	public String edit(Long id,Model model){
 		object = commonService.findById(getObjectClass(), id);
 		model.addAttribute("object", object);
-		return dir()+"/add";
+		model.addAttribute("objectDir", dir());
+		return dir()+"/edit"+StringHelper.firstCharUpper(dir());
 	}
 	
 	@RequestMapping("/save")

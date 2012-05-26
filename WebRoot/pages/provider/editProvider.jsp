@@ -11,35 +11,30 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<link href='<c:url value="/css/common.css"/>' rel="stylesheet" type="text/css">
-  <script type="text/javascript">
-  	function goback(){
-  		location = "${ctx}/user/list.do";
-  	}
-  	</script>
   </head>
   
   <body>
-  	<form:form action="save.do" method="post" modelAttribute="user" name="f1">
+  	<form:form action="save.do" method="post" modelAttribute="object" name="f1">
   		增加用户
   		<div class="clum_title"></div>
   		<form:hidden path="id"/>
 		<table class="mainTable">
 			<tr>
-				<td>登录名:</td>
+				<td>供应商名称:</td>
 				<td>
-					<form:input path="loginName"/>
+					<form:input path="providerName"/>
 				</td>
 			</tr>
 			<tr>
-				<td>姓名:</td>
+				<td>联系人:</td>
 				<td>
-					<form:input path="realName"/>
+					<form:input path="commonContact"/>
 				</td>
 			</tr>
 			<tr>
-				<td>密码:</td>
+				<td>电话:</td>
 				<td>
-					<form:password path="userPasswd"/>
+					<form:input path="providerTel"/>
 				</td>
 			</tr>
 			<tr class="g_line"> <td colspan="2"></td></tr>

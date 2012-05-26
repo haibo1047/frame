@@ -11,15 +11,10 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<link href='<c:url value="/css/common.css"/>' rel="stylesheet" type="text/css">
-  	<script type="text/javascript">
-  	function goback(){
-  		location = "${ctx}/repository/listRepository.do";
-  	}
-  	</script>
   </head>
   
   <body>
-  	<form:form action="saveRepository.do" modelAttribute="repo" name="f1" method="post">
+  	<form:form action="save.do" modelAttribute="object" name="f1" method="post">
   		增加仓库
   		<div class="clum_title"></div>
   		<form:hidden path="id"/>

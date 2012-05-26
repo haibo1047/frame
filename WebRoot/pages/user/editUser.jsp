@@ -11,11 +11,6 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<link href='<c:url value="/css/common.css"/>' rel="stylesheet" type="text/css">
-  <script type="text/javascript">
-  	function goback(){
-  		location = "${ctx}/provider/list.do";
-  	}
-  	</script>
   </head>
   
   <body>
@@ -25,21 +20,21 @@
   		<form:hidden path="id"/>
 		<table class="mainTable">
 			<tr>
-				<td>供应商名称:</td>
+				<td>登录名:</td>
 				<td>
-					<form:input path="providerName"/>
+					<form:input path="loginName"/>
 				</td>
 			</tr>
 			<tr>
-				<td>联系人:</td>
+				<td>姓名:</td>
 				<td>
-					<form:input path="commonContact"/>
+					<form:input path="realName"/>
 				</td>
 			</tr>
 			<tr>
-				<td>电话:</td>
+				<td>密码:</td>
 				<td>
-					<form:input path="providerTel"/>
+					<form:password path="userPasswd"/>
 				</td>
 			</tr>
 			<tr class="g_line"> <td colspan="2"></td></tr>

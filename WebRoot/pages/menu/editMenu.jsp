@@ -11,15 +11,10 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<link href='<c:url value="/css/common.css"/>' rel="stylesheet" type="text/css">
-  	<script type="text/javascript">
-  	function goback(){
-  		location = "${ctx}/menu/listMenu.do";
-  	}
-  	</script>
   </head>
   
   <body>
-  	<form:form action="saveMenu.do" modelAttribute="menu" name="f1" method="post">
+  	<form:form action="save.do" modelAttribute="object" name="f1" method="post">
   		增加用户
   		<div class="clum_title"></div>
 		<table border="0" cellpadding="0" cellspacing="0" class="mainTable">
