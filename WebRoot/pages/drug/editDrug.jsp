@@ -70,6 +70,12 @@
 					<form:input path="manufacturer"/>
 				</td>
 			</tr>
+			<tr>
+				<td>剂型：</td>
+				<td>
+					<form:input path="drugForm"/>
+				</td>
+			</tr>
 			<tr class="g_line"> <td colspan="2"></td></tr>
 			<tr>
 				<td class="fm_left"></td>

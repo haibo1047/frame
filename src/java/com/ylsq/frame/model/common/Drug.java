@@ -37,6 +37,7 @@ public class Drug extends ExtraPK{
 	private Provider drugProvider;//供应商
 	private String productModel;//规格
 	private String manufacturer;//生产厂商
+	private String drugForm;//剂型
 	private Set<DrugRepository> drugRepositorySet;
 	
 	@Column(name="DRUG_NAME")
@@ -102,6 +103,14 @@ public class Drug extends ExtraPK{
 	}
 	public void setManufacturer(String manufacturer) {
 		this.manufacturer = manufacturer;
+	}
+	
+	@Column(name = "DRUG_FORM")
+	public String getDrugForm() {
+		return drugForm;
+	}
+	public void setDrugForm(String drugForm) {
+		this.drugForm = drugForm;
 	}
 	
 	@ManyToOne(targetEntity=Provider.class)

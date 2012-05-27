@@ -18,6 +18,7 @@ public class StringHelper {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		System.out.println(getSimpleSpell(""));
 		System.out.println(firstCharUpper(" aAc"));
 		Md5PasswordEncoder enc = new Md5PasswordEncoder();
 		System.out.println(enc.encodePassword("user", null));
@@ -25,9 +26,20 @@ public class StringHelper {
 
 	public static String getSimpleSpell(String in){
 		StringBuffer r = new StringBuffer();
-		for(char c : in.toCharArray()){
-			String []sa = PinyinHelper.toHanyuPinyinStringArray(c);
-			r.append(sa[0].charAt(0));
+		if(in.equals("复方α-酮酸")){
+			System.out.println(in);
+		}
+		for(int index = 0; index<in.length() ; index++){
+			String c = in.substring(index,index+1);
+			if(c.getBytes().length == 1){
+				r.append(c);
+			}
+			else{
+				String []sa = PinyinHelper.toHanyuPinyinStringArray(c.charAt(0));
+				if(sa != null){
+					r.append(sa[0].charAt(0));
+				}
+			}
 		}
 		return r.toString();
 	}

@@ -10,8 +10,10 @@ import com.ylsq.frame.sh.LabelAndValue;
  *	
  */
 public enum DrugType implements LabelAndValue{
-	OTC(1,"OTX"),
-	RX(2,"处方药");
+	OTC(1,"OTC"),
+	RX(2,"RX"),
+	TCM(3,"中药材"),
+	OTHER(4,"其他");
 	private Integer value;
 	private String label;
 	

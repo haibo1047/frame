@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 
 import com.ylsq.frame.dict.common.DrugType;
 import com.ylsq.frame.model.common.Drug;
+import com.ylsq.frame.model.common.Provider;
 import com.ylsq.frame.utils.PoiHelper;
+import com.ylsq.frame.utils.StringHelper;
 
 /**
  * @author hopper
@@ -41,17 +43,26 @@ public class DrugService extends CommonService {
 			String approvalNumber = PoiHelper.parseCell(row.getCell(5), String.class);
 			String productModel = PoiHelper.parseCell(row.getCell(6), String.class);
 			String manufacturer = PoiHelper.parseCell(row.getCell(7), String.class);
+			String drugForm = PoiHelper.parseCell(row.getCell(8), String.class);
 			Drug drug = new Drug();
 			drug.setDrugName(drugName);
 			drug.setDrugType(DrugType.convert(drugType));
 			if(StringUtils.isNotBlank(providerName)){
-				drug.setDrugProvider(providerService.findProviderByName(providerName));
+				Provider prov = providerService.findProviderByName(providerName);
+				if(prov == null){
+					prov = new Provider();
+					prov.setProviderName(providerName);
+					providerService.saveOrUpdateModel(Provider.class, prov);
+				}
+				drug.setDrugProvider(prov);
 			}
 			drug.setDrugUnit(drugUnit);
 			drug.setGuaranteeMonth(guaranteeMonth);
 			drug.setApprovalNumber(approvalNumber);
 			drug.setProductModel(productModel);
 			drug.setManufacturer(manufacturer);
+			drug.setDrugForm(drugForm);
+			drug.setSimpleSpell(StringHelper.getSimpleSpell(drugName));
 			drugList.add(drug);
 		}
 		return saveAll(Drug.class, drugList);
