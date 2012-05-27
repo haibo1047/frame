@@ -35,6 +35,8 @@ public class Drug extends ExtraPK{
 	private Integer guaranteeMonth;//保持期（月）
 	private String approvalNumber;//批准文号
 	private Provider drugProvider;//供应商
+	private String productModel;//规格
+	private String manufacturer;//生产厂商
 	private Set<DrugRepository> drugRepositorySet;
 	
 	@Column(name="DRUG_NAME")
@@ -84,6 +86,22 @@ public class Drug extends ExtraPK{
 	}
 	public void setApprovalNumber(String approvalNumber) {
 		this.approvalNumber = approvalNumber;
+	}
+	
+	@Column(name = "PRODUCT_MODEL")
+	public String getProductModel() {
+		return productModel;
+	}
+	public void setProductModel(String productModel) {
+		this.productModel = productModel;
+	}
+	
+	@Column(name = "MANUFACTURER")
+	public String getManufacturer() {
+		return manufacturer;
+	}
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 	
 	@ManyToOne(targetEntity=Provider.class)

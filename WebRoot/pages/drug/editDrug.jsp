@@ -58,6 +58,18 @@
 					<form:input path="approvalNumber"/>
 				</td>
 			</tr>
+			<tr>
+				<td>规格：</td>
+				<td>
+					<form:input path="productModel"/>
+				</td>
+			</tr>
+			<tr>
+				<td>生产厂商：</td>
+				<td>
+					<form:input path="manufacturer"/>
+				</td>
+			</tr>
 			<tr class="g_line"> <td colspan="2"></td></tr>
 			<tr>
 				<td class="fm_left"></td>

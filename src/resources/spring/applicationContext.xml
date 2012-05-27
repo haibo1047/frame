@@ -73,8 +73,9 @@
 			<tx:method name="delete*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="parse*" propagation="REQUIRED" />
 			<tx:method name="find*" propagation="REQUIRED" read-only="true"/>
-			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" read-only="true"/>
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>

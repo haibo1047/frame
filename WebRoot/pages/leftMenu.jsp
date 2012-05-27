@@ -44,7 +44,7 @@
 								<ul class="MM">
 									<c:forEach items="${menuMenu.get(first)}" var="menu">
 										<li>
-											<a href="${ctx}/${menu.menuUrl}" target="main"><c:out value="${menu.menuName}"/></a>
+											<a href="${ctx}${menu.menuUrl}" target="main"><c:out value="${menu.menuName}"/></a>
 										</li>
 									</c:forEach>
 								</ul>

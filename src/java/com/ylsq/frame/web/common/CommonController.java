@@ -3,10 +3,15 @@
  */
 package com.ylsq.frame.web.common;
 
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.persistence.MappedSuperclass;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -23,11 +28,13 @@ import com.ylsq.frame.utils.StringHelper;
  */
 @MappedSuperclass
 public abstract class CommonController<T extends PK> {
+	private static Logger logger = LoggerFactory.getLogger(CommonController.class);
 	@Autowired
 	protected CommonService commonService;
 	
 	protected T object;
 	protected List<T> objectList;
+	private String exportFilePath;
 
 	abstract protected String dir();
 	abstract protected Class<T> getObjectClass();
@@ -40,7 +47,7 @@ public abstract class CommonController<T extends PK> {
 	public String list(Model model){
 		customList();
 		model.addAttribute("objectList", objectList);
-		return dir()+"/list"+StringHelper.firstCharUpper(dir());
+		return getListPath();
 	}
 	
 	@RequestMapping("/add")
@@ -48,8 +55,8 @@ public abstract class CommonController<T extends PK> {
 		object = BeanUtils.instantiate(getObjectClass());
 		beforeEdit(model);
 		model.addAttribute("object", object);
-		model.addAttribute("objectDir", dir());
-		return dir()+"/edit"+StringHelper.firstCharUpper(dir());
+		objectDir(model);
+		return getEditPath();
 	}
 	
 	@RequestMapping("/edit")
@@ -57,8 +64,8 @@ public abstract class CommonController<T extends PK> {
 		object = commonService.findById(getObjectClass(), id);
 		beforeEdit(model);
 		model.addAttribute("object", object);
-		model.addAttribute("objectDir", dir());
-		return dir()+"/edit"+StringHelper.firstCharUpper(dir());
+		objectDir(model);
+		return getEditPath();
 	}
 	
 	@RequestMapping("/save")
@@ -77,7 +84,38 @@ public abstract class CommonController<T extends PK> {
 		return list(model);
 	}
 	
+	protected String getListPath(){
+		return dir()+"/list"+StringHelper.firstCharUpper(dir());
+	}
+	
+	protected String getEditPath(){
+		return dir()+"/edit"+StringHelper.firstCharUpper(dir());
+	}
+	
+	protected void objectDir(Model model){
+		model.addAttribute("objectDir", dir());
+	}
+	
+	public String getExportFilePath() {
+		return exportFilePath;
+	}
+	public void setExportFilePath(String exportFilePath) {
+		this.exportFilePath = exportFilePath;
+	}
 	protected void beforeSave(){}
 	
 	protected void beforeEdit(Model model){}
+	
+	public void exportFile(HttpServletResponse response,HSSFWorkbook book){
+		OutputStream os;
+		try {
+			response.setHeader("Content-Disposition", "attachment; filename=temp.xls");
+			os = response.getOutputStream();
+			book.write(os);
+			os.flush();
+			os.close();
+		} catch (Exception e) {
+			logger.error("",e);
+		}
+	}
 }

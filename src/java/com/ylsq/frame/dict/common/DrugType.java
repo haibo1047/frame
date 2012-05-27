@@ -15,6 +15,14 @@ public enum DrugType implements LabelAndValue{
 	private Integer value;
 	private String label;
 	
+	public static DrugType convert(String l){
+		for(DrugType dt : values()){
+			if(dt.getLabel().equals(l))
+				return dt;
+		}
+		return null;
+	}
+	
 	public static DrugType convert(int v){
 		for(DrugType dt : values()){
 			if(v == dt.getValue())
