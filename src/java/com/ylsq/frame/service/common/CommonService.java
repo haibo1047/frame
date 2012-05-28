@@ -5,8 +5,8 @@ package com.ylsq.frame.service.common;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.ylsq.frame.dao.common.CommonDao;
@@ -17,10 +17,9 @@ import com.ylsq.frame.model.common.PK;
  *
  */
 
-@Service("commonService")
+@Service
 public class CommonService{
-	@Autowired
-	@Qualifier("commonDao")
+	@Resource
 	private CommonDao commonDao;
 	
 	public <T extends PK> List<T> find(Class<T> clazz,T example){

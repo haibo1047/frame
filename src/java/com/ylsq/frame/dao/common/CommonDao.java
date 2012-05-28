@@ -5,11 +5,11 @@ package com.ylsq.frame.dao.common;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.ylsq.frame.model.common.PK;
@@ -22,8 +22,7 @@ import com.ylsq.frame.model.common.PK;
 @Repository("commonDao")
 public class CommonDao{
 	public static int BATCH_OP_NUM = 200;
-	@Autowired
-	@Qualifier("sessionFactory")
+	@Resource
 	private SessionFactory sessionFactory;
 	public <T> void saveOrUpdateModel(Class<T> clazz,T model){
 		getSession().saveOrUpdate(model);

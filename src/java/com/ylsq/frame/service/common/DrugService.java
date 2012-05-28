@@ -6,12 +6,13 @@ package com.ylsq.frame.service.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ylsq.frame.dict.common.DrugType;
@@ -26,7 +27,7 @@ import com.ylsq.frame.utils.StringHelper;
  */
 @Service
 public class DrugService extends CommonService {
-	@Autowired
+	@Resource
 	private ProviderService providerService;
 	
 	public boolean parseExcel(HSSFWorkbook book){
