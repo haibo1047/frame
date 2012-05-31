@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ylsq.frame.compare.SecuMenuComparator;
 import com.ylsq.frame.model.common.SecuMenu;
 import com.ylsq.frame.service.common.CommonService;
+import com.ylsq.frame.service.common.SecuMenuService;
 import com.ylsq.frame.utils.FrameMenu;
+import com.ylsq.frame.utils.SecurityUtils;
 import com.ylsq.frame.utils.SpringProperties;
 
 @Controller
@@ -25,6 +28,8 @@ public class IndexController {
 	
 	@Autowired
 	private CommonService commonService;
+	@Autowired
+	private SecuMenuService secuMenuService;
 	@Autowired
 	private SpringProperties springProperties;
 	@RequestMapping("/main")
@@ -47,24 +52,28 @@ public class IndexController {
 	
 	@RequestMapping("/leftMenu")
 	public void leftMenu(Model model){
-		List<SecuMenu> menuList = commonService.findAll(SecuMenu.class);
-		Collections.sort(menuList,new SecuMenuComparator());
-		List<String> firstLevel = new ArrayList<String>();
-		Map<String,List<SecuMenu>> menuMap = new HashMap<String, List<SecuMenu>>();
-		for(SecuMenu m : menuList){
-			String str = m.getMenuPath().split("//")[1];
-			if(!firstLevel.contains(str)){
-				firstLevel.add(str);
+		String username = SecurityUtils.fetchUsername();
+		if(StringUtils.isNotBlank(username)){
+//			List<SecuMenu> menuList = secuMenuService.findListByUsername(username);
+			List<SecuMenu> menuList = secuMenuService.findAll(SecuMenu.class);
+			Collections.sort(menuList,new SecuMenuComparator());
+			List<String> firstLevel = new ArrayList<String>();
+			Map<String,List<SecuMenu>> menuMap = new HashMap<String, List<SecuMenu>>();
+			for(SecuMenu m : menuList){
+				String str = m.getMenuPath().split("//")[1];
+				if(!firstLevel.contains(str)){
+					firstLevel.add(str);
+				}
+				List<SecuMenu> list = menuMap.get(str);
+				if(list == null){
+					list = new ArrayList<SecuMenu>();
+					menuMap.put(str, list);
+				}
+				list.add(m);
 			}
-			List<SecuMenu> list = menuMap.get(str);
-			if(list == null){
-				list = new ArrayList<SecuMenu>();
-				menuMap.put(str, list);
-			}
-			list.add(m);
+			model.addAttribute("firstLevel",firstLevel);
+			model.addAttribute("menuMenu",menuMap);
 		}
-		model.addAttribute("firstLevel",firstLevel);
-		model.addAttribute("menuMenu",menuMap);
 	}
 	@RequestMapping("/menu")
 	public void menu(Model model){

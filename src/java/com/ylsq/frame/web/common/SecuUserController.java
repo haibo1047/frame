@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ylsq.frame.model.common.SecuUser;
+import com.ylsq.frame.utils.StringHelper;
 
 
 @Controller
@@ -21,6 +22,12 @@ public class SecuUserController extends CommonController<SecuUser>{
 	@Override
 	protected Class<SecuUser> getObjectClass() {
 		return SecuUser.class;
+	}
+
+	@Override
+	protected void beforeSave() {
+		object.setPassword(StringHelper.md5code(object.getPassword()));
+		logger.debug("before");
 	}
 
 }

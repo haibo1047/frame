@@ -10,19 +10,11 @@
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 			http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-lazy-init="false">
 	
 	<context:property-placeholder location="WEB-INF/classes/datasource.properties" ignore-unresolvable="true"/>
 	<context:property-placeholder location="WEB-INF/classes/frame.properties" ignore-unresolvable="true"/>
-	
-	<!-- 开启AOP监听 只对当前配置文件有效 -->
-	<aop:aspectj-autoproxy expose-proxy="true" />
-	<!-- 开启注解事务 只对当前配置文件有效 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
-	<context:component-scan base-package="com.ylsq.frame">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" 
@@ -35,9 +27,6 @@
 		<property name="systemName" value="${systemName}"></property>
 	</bean>
 
-	<!-- Enable @Repository // from org.springframework.stereotype -->
-    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/> 
-    <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>
     
 	<!-- <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/petclinic"/> -->
 	<bean id="sessionFactory"
@@ -79,4 +68,18 @@
 		<aop:pointcut expression="execution(* com.ylsq.frame.service..*.*(..))" id="allmethod" />
 		<aop:advisor pointcut-ref="allmethod" advice-ref="advice" />
 	</aop:config>
+
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<aop:aspectj-autoproxy expose-proxy="true" />
+	<!-- 开启注解事务 只对当前配置文件有效 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Enable @Repository // from org.springframework.stereotype -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/> 
+    <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>
+    
+	<context:component-scan base-package="com.ylsq.frame">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--<context:exclude-filter type="annotation" expression="com.ylsq.frame.sh.NotSpringComponent"/>-->
+    </context:component-scan>
 </beans>

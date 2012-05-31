@@ -14,16 +14,18 @@
   </head>
   
   <body>
-	<a href="add.do">新增用户</a>
-    <ec:table items="objectList" var="user" action="list.do" imagePath="${ctx}/images/table/*.gif" filterable="false">
+	<a href="add.do">新增</a>
+    <ec:table items="objectList" var="role" action="list.do" imagePath="${ctx}/images/table/*.gif" filterable="false">
     	<ec:row>
     		<ec:column property="id"></ec:column>
-    		<ec:column property="username" alias="登录名"></ec:column>
-    		<ec:column property="realName" alias="姓名"></ec:column>
-    		<ec:column property="password" alias="密码"></ec:column>
+    		<ec:column property="roleName" alias="角色名称"></ec:column>
+    		<ec:column property="roleDesc" alias="角色描述"></ec:column>
+    		<ec:column property="authority" alias="权限"></ec:column>
     		<ec:column  alias="操作" sortable="false">
-				<a href="edit.do?id=${user.id}">编辑</a>
-				<a href="delete.do?id=${user.id}">删除</a>
+				<a href="configUser.do?id=${role.id}">配置用户</a>
+				<a href="configMenu.do?id=${role.id}">配置菜单</a>
+				<a href="edit.do?id=${role.id}">编辑</a>
+				<a href="delete.do?id=${role.id}">删除</a>
     		</ec:column>
     	</ec:row>
     </ec:table>

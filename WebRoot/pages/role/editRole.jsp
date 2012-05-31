@@ -15,26 +15,26 @@
   
   <body>
   	<form:form action="save.do" method="post" modelAttribute="object" name="f1">
-  		增加用户
+  		增加角色
   		<div class="clum_title"></div>
   		<form:hidden path="id"/>
 		<table class="mainTable">
 			<tr>
-				<td>登录名:</td>
+				<td>角色名称:</td>
 				<td>
-					<form:input path="username"/>
+					<form:input path="roleName"/>
 				</td>
 			</tr>
 			<tr>
-				<td>姓名:</td>
+				<td>角色描述:</td>
 				<td>
-					<form:input path="realName"/>
+					<form:input path="roleDesc"/>
 				</td>
 			</tr>
 			<tr>
-				<td>密码:</td>
+				<td>权限:</td>
 				<td>
-					<form:password path="password"/>
+					<form:input path="authority"/>
 				</td>
 			</tr>
 			<tr class="g_line"> <td colspan="2"></td></tr>
