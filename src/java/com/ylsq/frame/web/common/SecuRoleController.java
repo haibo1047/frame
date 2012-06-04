@@ -3,16 +3,21 @@
  */
 package com.ylsq.frame.web.common;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ylsq.frame.model.common.SecuRole;
 import com.ylsq.frame.model.common.SecuUser;
 import com.ylsq.frame.service.common.SecuRoleService;
+import com.ylsq.frame.service.common.SecuUserRoleService;
 
 /**
  * @author hopper
@@ -23,6 +28,10 @@ import com.ylsq.frame.service.common.SecuRoleService;
 public class SecuRoleController extends CommonController<SecuRole> {
 	@Autowired
 	private SecuRoleService secuRoleService;
+	
+	@Autowired
+	private SecuUserRoleService secuUserRoleService;
+
 	@Override
 	protected String dir() {
 		return "role";
@@ -40,13 +49,29 @@ public class SecuRoleController extends CommonController<SecuRole> {
 
 	@RequestMapping("/configUser")
 	public String configUser(Long id,Model model){
-		List<SecuUser> userList = secuRoleService.findUserListByRoleId(id);
-		model.addAttribute("userList", userList);
+		List<SecuUser> selectedUsers = secuRoleService.findUserListByRoleId(id);
+		Set<Long> selectIds = new HashSet<Long>();
+		for(SecuUser u : selectedUsers){
+			selectIds.add(u.getId());
+		}
+		List<SecuUser> allUser = commonService.findAll(SecuUser.class);
+		List<SecuUser> unselectUsers = new ArrayList<SecuUser>();
+		for(SecuUser u : allUser){
+			if(!selectIds.contains(u.getId())){
+				unselectUsers.add(u);
+			}
+		}
+		model.addAttribute("selectedUsers", selectedUsers);
+		model.addAttribute("unselectUsers", unselectUsers);
+		object = secuRoleService.findById(SecuRole.class, id);
+		model.addAttribute("object", object);
+		objectDir(model);
 		return dir()+"/configUser";
 	}
 	
 	@RequestMapping("saveConfigUser")
-	public String saveConfigUser(Long roleId,Model model){
-		return configUser(roleId,model);
+	public String saveConfigUser(@ModelAttribute SecuRole role,Model model){
+		secuUserRoleService.saveUserRole(role.getId(), role.getSelectedIds());
+		return configUser(role.getId(),model);
 	}
 }

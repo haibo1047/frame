@@ -1,6 +1,7 @@
 package com.ylsq.frame.model.common;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -23,6 +25,23 @@ public class SecuRole extends PK implements GrantedAuthority ,Serializable{
 	
 	private Set<SecuUserRole> userRoleSet;
 	private Set<SecuRoleMenu> roleMenuSet;
+	
+	private List<Long> unselectIds;
+	private List<Long> selectedIds;
+	@Transient
+	public List<Long> getUnselectIds() {
+		return unselectIds;
+	}
+	public void setUnselectIds(List<Long> unselectIds) {
+		this.unselectIds = unselectIds;
+	}
+	@Transient
+	public List<Long> getSelectedIds() {
+		return selectedIds;
+	}
+	public void setSelectedIds(List<Long> selectedIds) {
+		this.selectedIds = selectedIds;
+	}
 	
 	@Column(name = "ROLE_NAME" ,length=30)
 	public String getRoleName() {

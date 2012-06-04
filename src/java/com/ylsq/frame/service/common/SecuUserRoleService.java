@@ -38,4 +38,20 @@ public class SecuUserRoleService extends CommonService {
 		List<SecuUserRole> urList =  find(SecuUserRole.class, example);
 		return urList;
 	}
+	
+	public void saveUserRole(Long roleId,List<Long> userIds){
+		if(userIds != null){
+			SecuRole r = new SecuRole();;
+			r.setId(roleId);
+			for(Long usesId : userIds){
+				SecuUser u = new SecuUser();
+				u.setId(usesId);
+				SecuUserRole ur = new SecuUserRole();
+				ur.setSecuRole(r);
+				ur.setSecuUser(u);
+				
+				saveOrUpdateModel(SecuUserRole.class, ur);
+			}
+		}
+	}
 }
