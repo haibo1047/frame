@@ -23,6 +23,7 @@ import com.ylsq.frame.model.common.SecuMenu;
 import com.ylsq.frame.model.common.SecuRole;
 import com.ylsq.frame.service.common.SecuMenuService;
 import com.ylsq.frame.service.common.SecuRoleMenuService;
+import com.ylsq.frame.utils.SecurityUtils;
 
 /**
  * @author hopper
@@ -64,7 +65,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         if(auth == null || auth.getPrincipal() == null){
         	return new ArrayList<ConfigAttribute>(0);
         }
-        if("root".equals(auth.getName()))
+        if(SecurityUtils.isSuperAdmin())
         	return null;
         List<ConfigAttribute> configAttrList = null;
         SecuMenu menu = secuMenuService.findByUrl(url);

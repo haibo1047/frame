@@ -54,8 +54,7 @@ public class IndexController {
 	public void leftMenu(Model model){
 		String username = SecurityUtils.fetchUsername();
 		if(StringUtils.isNotBlank(username)){
-//			List<SecuMenu> menuList = secuMenuService.findListByUsername(username);
-			List<SecuMenu> menuList = secuMenuService.findAll(SecuMenu.class);
+			List<SecuMenu> menuList = secuMenuService.findListByUsername(username);
 			Collections.sort(menuList,new SecuMenuComparator());
 			List<String> firstLevel = new ArrayList<String>();
 			Map<String,List<SecuMenu>> menuMap = new HashMap<String, List<SecuMenu>>();

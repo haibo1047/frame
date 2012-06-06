@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ylsq.frame.dao.common.SecuMenuDao;
 import com.ylsq.frame.model.common.SecuMenu;
+import com.ylsq.frame.utils.SecurityUtils;
 
 /**
  * @author hopper
@@ -31,6 +32,9 @@ public class SecuMenuService extends CommonService {
 	}
 	
 	public List<SecuMenu> findListByUsername(String loginName){
+		if(SecurityUtils.isSuperAdmin()){
+			return findAll(SecuMenu.class);
+		}
 		return secuMenuDao.findListByUsername(loginName);
 	}
 }
