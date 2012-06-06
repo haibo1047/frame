@@ -13,9 +13,14 @@
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
 	default-lazy-init="false">
 	
-	<context:property-placeholder location="WEB-INF/classes/datasource.properties" ignore-unresolvable="true"/>
+	<!--<context:property-placeholder location="WEB-INF/classes/datasource.properties" ignore-unresolvable="true"/>
+	-->
 	<context:property-placeholder location="WEB-INF/classes/frame.properties" ignore-unresolvable="true"/>
-
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="WEB-INF/classes/datasource.properties" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" 
 		p:driverClassName="${jdbc.driverClassName}"
@@ -37,6 +42,9 @@
 				<value>com.ylsq.frame.model</value>
 			</list>
 		</property>
+		<!--
+				hibernate.hbm2ddl.auto=update
+		 -->
 		<property name="hibernateProperties">
 			<value>
 				hibernate.hbm2ddl.auto=update

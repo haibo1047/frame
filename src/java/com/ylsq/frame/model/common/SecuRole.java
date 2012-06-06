@@ -26,23 +26,22 @@ public class SecuRole extends PK implements GrantedAuthority ,Serializable{
 	private Set<SecuUserRole> userRoleSet;
 	private Set<SecuRoleMenu> roleMenuSet;
 	
-	private List<Long> unselectIds;
-	private List<Long> selectedIds;
+	private List<String> selected;
+	private List<String> unselect;
 	@Transient
-	public List<Long> getUnselectIds() {
-		return unselectIds;
+	public List<String> getSelected() {
+		return selected;
 	}
-	public void setUnselectIds(List<Long> unselectIds) {
-		this.unselectIds = unselectIds;
+	public void setSelected(List<String> selected) {
+		this.selected = selected;
 	}
 	@Transient
-	public List<Long> getSelectedIds() {
-		return selectedIds;
+	public List<String> getUnselect() {
+		return unselect;
 	}
-	public void setSelectedIds(List<Long> selectedIds) {
-		this.selectedIds = selectedIds;
+	public void setUnselect(List<String> unselect) {
+		this.unselect = unselect;
 	}
-	
 	@Column(name = "ROLE_NAME" ,length=30)
 	public String getRoleName() {
 		return roleName;
@@ -80,7 +79,7 @@ public class SecuRole extends PK implements GrantedAuthority ,Serializable{
 	
 	@OneToMany(targetEntity = SecuRoleMenu.class)
 	@Cascade(value = {CascadeType.DELETE})
-	@JoinColumn(name = "MENU_ID")
+	@JoinColumn(name = "ROLE_ID")
 	public Set<SecuRoleMenu> getRoleMenuSet() {
 		return roleMenuSet;
 	}

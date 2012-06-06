@@ -82,7 +82,7 @@ function moveIt(oSource, oTarget, direct) {
 	if (oSource.selectedIndex == -1) {
 		selectMoveAll(oSource, oTarget);
 		destroy();
-		init('unSelectedUser', 'selectedUser');
+		init('unSelectedElement', 'selectedElement');
 		return;
 	}
 	var mySld = new Array();

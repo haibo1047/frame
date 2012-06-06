@@ -64,9 +64,10 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         if(auth == null || auth.getPrincipal() == null){
         	return new ArrayList<ConfigAttribute>(0);
         }
+        if("root".equals(auth.getName()))
+        	return null;
         List<ConfigAttribute> configAttrList = null;
         SecuMenu menu = secuMenuService.findByUrl(url);
-        menu = null;
         if(menu != null){
         	configAttrList = new ArrayList<ConfigAttribute>();
         	List<SecuRole> roleList = secuRoleMenuService.findRoleListByMenuId(menu.getId());

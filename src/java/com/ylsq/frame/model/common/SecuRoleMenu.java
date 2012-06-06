@@ -8,9 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 
 /**
  * @author hopper
@@ -25,7 +22,6 @@ public class SecuRoleMenu extends PK {
 	
 	@ManyToOne(targetEntity = SecuRole.class)
 	@JoinColumn(name = "ROLE_ID")
-	@Cascade(value = {CascadeType.SAVE_UPDATE})
 	public SecuRole getSecuRole() {
 		return secuRole;
 	}
@@ -35,7 +31,6 @@ public class SecuRoleMenu extends PK {
 	
 	@ManyToOne(targetEntity = SecuMenu.class)
 	@JoinColumn(name = "MENU_ID")
-	@Cascade(value = {CascadeType.SAVE_UPDATE})
 	public SecuMenu getSecuMenu() {
 		return secuMenu;
 	}
