@@ -45,13 +45,27 @@
 <body>
 	
 <div class="demo">
-
 <div class="ui-widget">
 	<label for="tags">Tags: </label>
 	<input id="tags" />
 </div>
-
 </div>
+ 	<table>
+		<tr>
+			<td>
+				药品
+			</td>
+			<td>
+				供货单位
+			</td>
+			<td>
+				生产日期
+			</td>
+			<td>
+				数量
+			</td>
+		</tr>
+	</table>
 
 </body>
 </html>

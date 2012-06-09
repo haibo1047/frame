@@ -61,6 +61,11 @@ public class CommonDao{
 		getSession().delete(model);
 	}
 	
+	public Integer getSequence(String seqName){
+		Long l = (Long)getSession().createSQLQuery("select seq.nextval from dual").uniqueResult();
+		return null;
+	}
+	
 	public Session getSession(){
 		return sessionFactory.getCurrentSession();
 	}

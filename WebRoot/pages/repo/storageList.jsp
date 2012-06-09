@@ -5,7 +5,7 @@
 <html>
   <head>
     
-    <title>My JSP 'listUser.jsp' starting page</title>
+    <title>bill</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -13,14 +13,14 @@
   </head>
   
   <body>
-	<a href="add.do">新增</a>
-  	<ec:table items="objectList" var="repo" imagePath="${ctx}/images/table/*.gif" action="list.do" filterable="false">
+  	<a href="addBill.do">新增</a>
+  	<ec:table items="billList" var="bill" imagePath="${ctx}/images/table/*.gif" action="storage.do" filterable="false">
   		<ec:row>
 			<ec:column property="id" alias="ID"/>
-			<ec:column property="repositoryName" alias="仓库名称"/>
-			<ec:column property="repoAddress" alias="仓库地址"/>
+			<ec:column property="billNo" alias="单号"/>
+			<ec:column property="createDate" alias="创建时间"/>
+			<ec:column property="createUser" alias="创建人"/>
 			<ec:column alias="操作" sortable="false">
-				<a href="edit.do?id=${repo.id}">view</a>
 				<a href="delete.do?id=${repo.id}">删除</a>
 			</ec:column>
 		</ec:row>
