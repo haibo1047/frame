@@ -20,8 +20,9 @@ import com.ylsq.frame.model.repo.Bill;
 public class BillDao extends CommonDao{
 	public String genBillNo(BillType billType){
 		String no = (String)getSession().createQuery("SELECT max(billNo) from Bill where billType=?").setParameter(0, billType).uniqueResult();
+		no = StringUtils.defaultIfEmpty(no, billType.getPrefix()+"0");
 		
-		if(StringUtils.isEmpty(no) || !no.startsWith(billType.getPrefix())){
+		if(!no.startsWith(billType.getPrefix())){
 			throw new RuntimeException("单据号异常["+no+"]，单据号应该以"+billType.getPrefix()+"开头");
 		}
 		no = no.substring(billType.getPrefix().length());

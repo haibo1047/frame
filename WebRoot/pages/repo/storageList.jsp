@@ -20,8 +20,10 @@
 			<ec:column property="billNo" alias="单号"/>
 			<ec:column property="createDate" alias="创建时间"/>
 			<ec:column property="createUser" alias="创建人"/>
+			<ec:column property="available.label" alias="是否生效"/>
 			<ec:column alias="操作" sortable="false">
-				<a href="delete.do?id=${repo.id}">删除</a>
+				<a href="editBill.do?id=${bill.id}">编辑</a>
+				<a href="delete.do?id=${bill.id}">删除</a>
 			</ec:column>
 		</ec:row>
   	</ec:table>

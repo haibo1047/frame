@@ -18,6 +18,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import com.ylsq.frame.dict.common.BillType;
+import com.ylsq.frame.dict.common.Options;
 import com.ylsq.frame.model.common.PK;
 
 /**
@@ -32,6 +33,7 @@ public class Bill extends PK {
 	private String billNo;
 	private String createUser;
 	private Date createDate;
+	private Options available;
 	
 	private Set<BillDetail> billDetailSet;
 	
@@ -66,6 +68,15 @@ public class Bill extends PK {
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	
+	@Column(name = "AVAILABLE",length=1)
+	@Type(type="com.ylsq.frame.sh.LabelAndValueType",parameters={@Parameter(name="enumClass",value="com.ylsq.frame.dict.common.Options")})
+	public Options getAvailable() {
+		return available;
+	}
+	public void setAvailable(Options available) {
+		this.available = available;
 	}
 	
 	@OneToMany(targetEntity = BillDetail.class)

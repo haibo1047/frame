@@ -30,7 +30,6 @@ public class RepositoryManageController{
 
 	@RequestMapping("storage")
 	public String storage(Model model){
-		logger.debug(billService.genBillNo(BillType.STORAGE));
 		List<Bill> billList = billService.findListByType(BillType.STORAGE);
 		model.addAttribute("billList", billList);
 		return "repo/storageList";
@@ -41,5 +40,21 @@ public class RepositoryManageController{
 		Bill bill = billService.createBill(BillType.STORAGE, SecurityUtils.fetchUsername());
 		model.addAttribute("bill", bill);
 		return "repo/editBill";
+	}
+	
+	@RequestMapping("editBill")
+	public String editBill(Long id,Model model){
+		Bill bill = billService.findById(Bill.class, id);
+		
+		model.addAttribute("bill", bill);
+		return "repo/editBill";
+	}
+	
+	@RequestMapping("delete")
+	public String delete(Long id,Model model){
+		Bill bill = new Bill();
+		bill.setId(id);
+		billService.deleteModel(Bill.class, bill);
+		return storage(model);
 	}
 }

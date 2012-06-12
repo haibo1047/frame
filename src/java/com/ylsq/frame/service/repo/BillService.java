@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.ylsq.frame.dao.repo.BillDao;
 import com.ylsq.frame.dict.common.BillType;
+import com.ylsq.frame.dict.common.Options;
 import com.ylsq.frame.model.repo.Bill;
 import com.ylsq.frame.service.common.CommonService;
 
@@ -38,6 +39,7 @@ public class BillService extends CommonService {
 		bill.setCreateDate(new Date());
 		bill.setCreateUser(createUser);
 		bill.setBillNo(genBillNo(billType));
+		bill.setAvailable(Options.NO);
 		saveOrUpdateModel(Bill.class, bill);
 		return bill;
 	}

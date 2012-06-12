@@ -6,7 +6,7 @@
 		<meta http-equiv=Content-Type content=text/html;charset=gb2312>
 	</head>
 	<script>
-		window.history(-1).foward(1);
+		//window.history(-1).foward(1);
 	</script>
 	<frameset rows="64,*" frameborder="NO" border="0" framespacing="0">
 		<frame src='<spring:url value="top.do"/>' noresize="noresize" frameborder="NO"
