@@ -17,50 +17,30 @@
 	<script type="text/javascript" src="<c:url value="/js/jquery.ui.position.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/js/jquery.ui.autocomplete.js"/>"></script>
 	<link type="text/css" href="<c:url value="/css/jquery/autocomplete.css"/>" rel="stylesheet" />
+	<script type="text/javascript" src="<c:url value="/js/drug.do"/>"></script>
   </head>
 <script type="text/javascript">
-function gotoback(){
+function gotoback() {
 	location = '<spring:url value="storage.do"/>';
 }
 
 $(function() {
-	var projects = [
-		{
-			value: "jquery",
-			label: "jQuery",
-			desc: "the write less, do more, JavaScript library",
-			icon: "jquery_32x32.png"
-		},
-		{
-			value: "jquery-ui",
-			label: "jQuery UI",
-			desc: "the official user interface library for jQuery",
-			icon: "jqueryui_32x32.png"
-		},
-		{
-			value: "sizzlejs",
-			label: "Sizzle JS",
-			desc: "a pure-JavaScript CSS selector engine",
-			icon: "sizzlejs_32x32.png"
-		}
-	];
-
-	$( "#drugName" ).autocomplete({
-		minLength: 0,
-		source: projects,
-		focus: function( event, ui ) {
-			$( "#drugName" ).val( ui.item.label );
+	$("#drugName").autocomplete({
+		minLength : 2,
+		source : drugJsArray,
+		focus : function(event, ui) {
+			$("#drugName").val(ui.item.label);
 			return false;
 		},
-		select: function( event, ui ) {
-			$( "#drugName" ).val( ui.item.label );
-			$( "#drugId" ).val( ui.item.value );
+		select : function(event, ui) {
+			$("#drugName").val(ui.item.name);
+			$("#drugId").val(ui.item.value);
 			return false;
 		}
 	});
 });
 </script>
-  <body>
+	<body>
   	<form:form action="save.do" modelAttribute="bill" name="f1" method="post">
   		单据:<c:out value="${bill.billNo}"></c:out>
   		<div class="clum_title"></div>

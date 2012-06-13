@@ -45,7 +45,7 @@ public class RepositoryManageController{
 	@RequestMapping("editBill")
 	public String editBill(Long id,Model model){
 		Bill bill = billService.findById(Bill.class, id);
-		
+		logger.debug(bill.getBillNo());
 		model.addAttribute("bill", bill);
 		return "repo/editBill";
 	}
