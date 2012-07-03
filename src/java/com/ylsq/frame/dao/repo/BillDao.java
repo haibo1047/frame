@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.ylsq.frame.dao.common.CommonDao;
 import com.ylsq.frame.dict.common.BillType;
 import com.ylsq.frame.model.repo.Bill;
+import com.ylsq.frame.model.repo.BillDetail;
 
 /**
  * @author hopper
@@ -29,9 +30,19 @@ public class BillDao extends CommonDao{
 		if(StringUtils.isNumeric(no)){
 			no = String.valueOf(Long.parseLong(no)+1);
 		}
-		return billType.getPrefix()+StringUtils.leftPad(no, 18,"0");
+		return billType.getPrefix()+StringUtils.leftPad(no, 16,"0");
 	}
 	public List<Bill> findListByType(BillType billType){
 		return getSession().createQuery("from Bill where billType=:billType").setParameter("billType", billType).list();
+	}
+	
+	public Bill findById(Long billId){
+		String sql = "select o,o.billDetail from Bill o where o.id = ?";
+		Bill bill = (Bill)getSession().createQuery(sql).setParameter(0, billId).uniqueResult();
+		return bill;
+	}
+	
+	public List<BillDetail> findDetailListByBillId(Long billId){
+		return getSession().createQuery("from BillDetail bd where bd.bill.id=?").setParameter(0, billId).list();
 	}
 }

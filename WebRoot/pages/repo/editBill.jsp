@@ -16,7 +16,9 @@
 	<script type="text/javascript" src="<c:url value="/js/jquery.ui.widget.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/js/jquery.ui.position.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/js/jquery.ui.autocomplete.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/jquery-ui-datepicker.min.js"/>"></script>
 	<link type="text/css" href="<c:url value="/css/jquery/autocomplete.css"/>" rel="stylesheet" />
+	<link type="text/css" href="<c:url value="/css/jquery/datepicker.css"/>" rel="stylesheet" />
 	<script type="text/javascript" src="<c:url value="/js/drug.do"/>"></script>
   </head>
 <script type="text/javascript">
@@ -24,60 +26,103 @@ function gotoback() {
 	location = '<spring:url value="storage.do"/>';
 }
 
-$(function() {
-	$("#drugName").autocomplete({
+function regist(){
+	$(".drugName").autocomplete({
 		minLength : 2,
 		source : drugJsArray,
 		focus : function(event, ui) {
-			$("#drugName").val(ui.item.label);
+			this.value=ui.item.label;
 			return false;
 		},
 		select : function(event, ui) {
-			$("#drugName").val(ui.item.name);
-			$("#drugId").val(ui.item.value);
+			this.value=ui.item.label;
+			this.parentElement.getElementsByClassName("drugId")[0].value=ui.item.value;
 			return false;
 		}
 	});
+}
+function datepick(){
+	$(".datepicker").datepicker();
+}
+
+$(function() {
+	regist();
+	datepick();
 });
+
+function appendRow(){
+	var tr = document.getElementById("copyTr");
+	var newtr = tr.cloneNode(true);
+	newtr.removeAttribute("id");
+	newtr.removeAttribute("style");
+	newtr.getElementsByClassName("datepicker")[0].className="datepicker";
+	tr.parentNode.appendChild(newtr); 
+	regist();
+	datepick();
+}
 </script>
 	<body>
   	<form:form action="save.do" modelAttribute="bill" name="f1" method="post">
   		单据:<c:out value="${bill.billNo}"></c:out>
   		<div class="clum_title"></div>
   		<form:hidden path="id"/>
-  		<table>
-			<tr>
-				<td>
-					药品
-				</td>
-				<td>
-					供货单位
-				</td>
-				<td>
-					生产日期
-				</td>
-				<td>
-					数量
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" id="drugName">
-				</td>
-				<td>
-					<input type="text" id="drugId">
-				</td>
-				<td>
-					<input type="text" >
-				</td>
-				<td>
-					<input type="text" >
-				</td>
-				<td>
-					<input type="text" >
-				</td>
-			</tr>
+		<input type="hidden" name="detailId"/>
+  		<table id="dataTable">
+  			<tbody id="dtBody">
+				<tr>
+					<td>
+						药品
+					</td>
+					<td>
+						供货单位
+					</td>
+					<td>
+						生产日期
+					</td>
+					<td>
+						数量
+					</td>
+				</tr>
+				<tr id="copyTr" style="display:none;">
+					<td>
+						<input type="text" class="drugName">
+						<input type="hidden" name="drugId" class="drugId"/>
+					</td>
+					<td>
+						<form:select path="createUser" items="${providerList}" itemLabel="providerName" itemValue="id"></form:select>
+					</td>
+					<td>
+						<input type="text" name="productDate" readonly="readonly" class="datepicker" value="">
+					</td>
+					<td>
+						<input type="text" name="drugCount">
+					</td>
+				</tr>
+				<c:forEach items="${bill.billDetailSet}" var="billDetail">
+					<input type="hidden" name="detailId" value="${billDetail.id}"/>
+					<tr>
+						<td>
+							<input type="text" class="drugName" value="${billDetail.drug.drugName}">
+							<input type="hidden" name="drugId" class="drugId" value="${billDetail.drug.id}"/>
+						</td>
+						<td>
+							<select name="createUser">
+								<c:forEach items="${providerList}" var="p">
+									<option value="${p.id}" <c:if test="${p.id==billDetail.provider.id}">selected</c:if>><c:out value="${p.providerName}"/></option>
+								</c:forEach>
+							</select>
+						</td>
+						<td>
+							<input type="text" readonly="readonly" class="datepicker" name="productDate" value="${billDetail.productDate}">
+						</td>
+						<td>
+							<input type="text" name="drugCount" value="${billDetail.drugCount}">
+						</td>
+					</tr>
+				</c:forEach>
+  			</tbody>
 		</table>
+		<a href="#" onclick="appendRow()">+</a>
 		<table class="mainTable">
 			<tr>
 				<td class="fm_left"></td>

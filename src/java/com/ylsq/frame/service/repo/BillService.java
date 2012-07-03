@@ -14,6 +14,7 @@ import com.ylsq.frame.dao.repo.BillDao;
 import com.ylsq.frame.dict.common.BillType;
 import com.ylsq.frame.dict.common.Options;
 import com.ylsq.frame.model.repo.Bill;
+import com.ylsq.frame.model.repo.BillDetail;
 import com.ylsq.frame.service.common.CommonService;
 
 /**
@@ -42,5 +43,13 @@ public class BillService extends CommonService {
 		bill.setAvailable(Options.NO);
 		saveOrUpdateModel(Bill.class, bill);
 		return bill;
+	}
+	
+	public Bill findById(Long billId){
+		return billDao.findById(billId);
+	}
+	
+	public List<BillDetail> findDetailListByBillId(Long billId){
+		return billDao.findDetailListByBillId(billId);
 	}
 }

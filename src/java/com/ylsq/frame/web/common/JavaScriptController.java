@@ -46,7 +46,7 @@ public class JavaScriptController {
 										  .append("-").append(drug.getApprovalNumber()==null?"":drug.getApprovalNumber())
 										  .append("-").append(drug.getManufacturer()==null?"":drug.getManufacturer());
 				drugInfo.append("',");
-				drugInfo.append("name:'").append(drug.getDrugName()).append("',");
+				drugInfo.append("name:'").append(drug.getDrugName()).append("'");
 				drugInfo.append("}");
 			}
 			drugInfo.append("];");

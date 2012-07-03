@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
@@ -80,8 +82,9 @@ public class Bill extends PK {
 	}
 	
 	@OneToMany(targetEntity = BillDetail.class)
-	@Cascade(value = {CascadeType.DELETE})
-	@JoinColumn(insertable=true,updatable=true)
+	@Cascade(value = {CascadeType.DELETE,CascadeType.SAVE_UPDATE})
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="BILL_ID",insertable=true,updatable=true)
 	public Set<BillDetail> getBillDetailSet() {
 		return billDetailSet;
 	}
