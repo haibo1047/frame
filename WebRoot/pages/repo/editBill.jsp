@@ -42,24 +42,41 @@ function regist(){
 	});
 }
 function datepick(){
-	$(".datepicker").datepicker();
-}
+		var pickerOpts = {
+	         changeMonth: true,
+	         changeYear: true,
+	         dateFormat: "yy-mm-dd",
+	         dayNamesMin:["一","二","三","四","五","六","日"],
+	         firstDay : 0,
+			 nextText : "下一月",
+			 prevText : "上一月",
+			 closeText : "关闭",
+			 currentText : "今天",
+			 monthNamesShort : [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月",
+					"九月", "十月", "十一月", "十二月" ],
+			 isRTL : false,
+			 showButtonPanel : true,
+			 yearRange : "-25:+25"
+		};
+		$(".datepicker").datepicker(pickerOpts);
+	}
 
-$(function() {
-	regist();
-	datepick();
-});
+	$(function() {
+		regist();
+		datepick();
+	});
 
-function appendRow(){
-	var tr = document.getElementById("copyTr");
-	var newtr = tr.cloneNode(true);
-	newtr.removeAttribute("id");
-	newtr.removeAttribute("style");
-	newtr.getElementsByClassName("datepicker")[0].className="datepicker";
-	tr.parentNode.appendChild(newtr); 
-	regist();
-	datepick();
-}
+	function appendRow() {
+		var tr = document.getElementById("copyTr");
+		var newtr = tr.cloneNode(true);
+		newtr.removeAttribute("id");
+		newtr.removeAttribute("style");
+		newtr.getElementsByClassName("datepicker")[0].className = "datepicker";
+		newtr.getElementsByClassName("datepicker")[0].removeAttribute("id");
+		tr.parentNode.appendChild(newtr);
+		regist();
+		datepick();
+	}
 </script>
 	<body>
   	<form:form action="save.do" modelAttribute="bill" name="f1" method="post">
@@ -83,7 +100,7 @@ function appendRow(){
 						数量
 					</td>
 				</tr>
-				<tr id="copyTr" style="display:none;">
+				<tr id="copyTr" style="display:none">
 					<td>
 						<input type="text" class="drugName">
 						<input type="hidden" name="drugId" class="drugId"/>
