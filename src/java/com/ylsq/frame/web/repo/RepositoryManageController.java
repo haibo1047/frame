@@ -93,7 +93,7 @@ public class RepositoryManageController{
 				Drug drug = new Drug();
 				drug.setId(Long.parseLong(sd));
 				BillDetail detail = new BillDetail();
-				if(StringUtils.isNumeric(detailIds[index])){
+				if(StringUtils.isNotBlank(detailIds[index]) && StringUtils.isNumeric(detailIds[index])){
 					detail.setId(Long.parseLong(detailIds[index]));
 				}
 				detail.setProvider(provider);
@@ -104,7 +104,7 @@ public class RepositoryManageController{
 				billDetailSet.add(detail);
 			}
 		}
-//		billService.saveOrUpdateModel(Bill.class, bill);
+		billService.saveOrUpdateModel(Bill.class, bill);
 		return editBill(id, model);
 	}
 }

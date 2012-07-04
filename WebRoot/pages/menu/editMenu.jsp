@@ -14,7 +14,7 @@
   </head>
   
   <body>
-  	<form:form action="save.do" modelAttribute="object" name="f1" method="post">
+  	<form:form action="ssave.do" modelAttribute="object" name="f1" method="post">
   		增加用户
   		<div class="clum_title"></div>
 		<table border="0" cellpadding="0" cellspacing="0" class="mainTable">
@@ -23,6 +23,7 @@
 				<td class="fm_left">路径：</td>
 				<td>
 					<form:input path="menuPath"/>
+					<form:errors path="menuPath"></form:errors>
 				</td>
 			</tr>
 			<tr>

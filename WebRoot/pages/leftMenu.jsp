@@ -42,7 +42,7 @@
 									</tr>
 								</table>
 								<ul class="MM">
-									<c:forEach items="${menuMenu.get(first)}" var="menu">
+									<c:forEach items="${menuMap.get(first)}" var="menu">
 										<li>
 											<a href="${ctx}${menu.menuUrl}" target="main"><c:out value="${menu.menuName}"/></a>
 										</li>

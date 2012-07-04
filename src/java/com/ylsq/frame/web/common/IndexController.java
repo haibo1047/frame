@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ylsq.frame.compare.SecuMenuComparator;
 import com.ylsq.frame.model.common.SecuMenu;
-import com.ylsq.frame.service.common.CommonService;
 import com.ylsq.frame.service.common.SecuMenuService;
-import com.ylsq.frame.utils.FrameMenu;
 import com.ylsq.frame.utils.SecurityUtils;
 import com.ylsq.frame.utils.SpringProperties;
 
@@ -27,14 +25,11 @@ public class IndexController {
 	private static Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
 	@Autowired
-	private CommonService commonService;
-	@Autowired
 	private SecuMenuService secuMenuService;
 	@Autowired
 	private SpringProperties springProperties;
 	@RequestMapping("/main")
 	public void index(Model model){
-		menu(model);
 		logger.debug("index");
 		model.addAttribute("systemName", springProperties.getSystemName());
 	}
@@ -59,7 +54,7 @@ public class IndexController {
 			List<String> firstLevel = new ArrayList<String>();
 			Map<String,List<SecuMenu>> menuMap = new HashMap<String, List<SecuMenu>>();
 			for(SecuMenu m : menuList){
-				String str = m.getMenuPath().split("//")[1];
+				String str = m.getMenuPath().split(SecuMenu.MENU_SPLIT)[1];
 				if(!firstLevel.contains(str)){
 					firstLevel.add(str);
 				}
@@ -71,13 +66,7 @@ public class IndexController {
 				list.add(m);
 			}
 			model.addAttribute("firstLevel",firstLevel);
-			model.addAttribute("menuMenu",menuMap);
+			model.addAttribute("menuMap",menuMap);
 		}
-	}
-	@RequestMapping("/menu")
-	public void menu(Model model){
-		List<SecuMenu> menuList = commonService.findAll(SecuMenu.class);
-		FrameMenu menu = new FrameMenu(null,menuList);
-		model.addAttribute("menu", menu);
 	}
 }

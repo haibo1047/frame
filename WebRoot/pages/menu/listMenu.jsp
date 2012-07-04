@@ -23,7 +23,7 @@
 			<ec:column property="menuOrder" alias="排序号"></ec:column>
 			<ec:column alias="操作" sortable="false">
 				<a href="edit.do?id=${menu.id}">edit</a>
-				<a href="delete.do?menuId=${menu.id}">删除</a>
+				<a href="delete.do?id=${menu.id}">删除</a>
 			</ec:column>
 		</ec:row>
 	</ec:table>

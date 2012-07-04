@@ -83,7 +83,6 @@ function datepick(){
   		单据:<c:out value="${bill.billNo}"></c:out>
   		<div class="clum_title"></div>
   		<form:hidden path="id"/>
-		<input type="hidden" name="detailId"/>
   		<table id="dataTable">
   			<tbody id="dtBody">
 				<tr>
@@ -113,6 +112,7 @@ function datepick(){
 					</td>
 					<td>
 						<input type="text" name="drugCount">
+						<input type="hidden" name="detailId"/>
 					</td>
 				</tr>
 				<c:forEach items="${bill.billDetailSet}" var="billDetail">

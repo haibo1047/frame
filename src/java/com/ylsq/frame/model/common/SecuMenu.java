@@ -21,6 +21,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name = "SECU_MENU")
 public class SecuMenu extends PK{
+	public static String MENU_SPLIT = "/";
 	private String menuName;
 	private String menuPath;
 	private String menuUrl;
