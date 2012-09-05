@@ -3,9 +3,12 @@
  */
 package com.ylsq.frame.utils;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,4 +35,10 @@ public class DateHelper {
 		return null;
 	}
 
+	public static String parseDate(Date date,String pattern){
+		DateFormat df = new SimpleDateFormat(StringUtils.defaultString(pattern, "yyyy-mm-dd"));
+		if(date == null)
+			date = new Date();
+		return df.format(date);
+	}
 }
