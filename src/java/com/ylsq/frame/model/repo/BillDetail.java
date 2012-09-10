@@ -11,10 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.ylsq.frame.model.common.Drug;
 import com.ylsq.frame.model.common.PK;
 import com.ylsq.frame.model.common.Provider;
+import com.ylsq.frame.utils.DateHelper;
 
 /**
  * @author hopper
@@ -23,12 +25,14 @@ import com.ylsq.frame.model.common.Provider;
 
 @Entity
 @Table(name = "BILL_DETAIL")
-public class BillDetail extends PK{
+public class BillDetail extends PK implements Comparable<BillDetail>{
 	private Bill bill;
 	private Drug drug;
 	private Provider provider;
 	private Date productDate;
 	private Integer drugCount;
+	
+	private String productDateString;
 	
 	@ManyToOne(targetEntity = Bill.class)
 	@JoinColumn(name = "BILL_ID")
@@ -71,5 +75,19 @@ public class BillDetail extends PK{
 	}
 	public void setDrugCount(Integer drugCount) {
 		this.drugCount = drugCount;
+	}
+	
+	@Transient
+	public String getProductDateString() {
+		return DateHelper.parseDate(productDate, null);
+	}
+	public void setProductDateString(String productDateString) {
+		this.productDateString = productDateString;
+	}
+	@Override
+	public int compareTo(BillDetail o) {
+		if(o == null || o.getId() == null)
+			return 1;
+		return (int)(getId() - o.getId());
 	}
 }

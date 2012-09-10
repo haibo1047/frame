@@ -43,6 +43,6 @@ public class BillDao extends CommonDao{
 	}
 	
 	public List<BillDetail> findDetailListByBillId(Long billId){
-		return getSession().createQuery("from BillDetail bd where bd.bill.id=?").setParameter(0, billId).list();
+		return getSession().createQuery("from BillDetail bd where bd.bill.id=? order by id").setParameter(0, billId).list();
 	}
 }
